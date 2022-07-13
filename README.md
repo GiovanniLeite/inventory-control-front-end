@@ -1,34 +1,70 @@
-# Inventário
-Projeto criado para ser um controlador de coleções diversas como carros, jogos e outros, mais um dos projetos idealizados para o estudo de programção com React, consiste de um front-end que utiliza Javascript, React, Redux, Redux Saga, Axios e outros, e uma API feita em Javascript com Express, Sequelize e mais pacotes, tanto front-end quando back-end também utilizam os pacotes Eslint e Prettier para melhor escrita do código. É um gerenciador para uma pessoa que precisasse controlar varios itens.
+# Getting Started with Create React App
 
-### Home
-No header temos o nome a esquerda e ícones de atalho a direita, sendo eles, Novo Item, Desejos, Categorias, Relatórios, Conta e Sair. Ao clicar em relatórios é exibida uma janela com as opções para relatório de itens ou de desejos, que nos trará uma uma lista com todos os itens registrados.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Na página Home, existe uma barra superior, a sua  direita fica um menu de categorias, onde podemos clicar para que sejam mostrados apenas itens daquela categoria, a direita fica outro menu onde podemos selecionar em que ordem queremos que os itens estejam, a baixo disso teremos um campo de busca onde o item pode ser pesquisado por nome ou código, abaixo na seção principal temos os itens distribuidos em cards com foto, nome e categoria.
+## Available Scripts
 
-### Item
-Na página do item teremos todas as informações referentes a ele como, nome, imagens, descrição e outros, lá também temos acessos aos botões, Novo, Alterar, Excluir e Relatórios.
+In the project directory, you can run:
 
-### Novo/Editar Item
-Esta página é onde podemos criar ou editar um item, com diversas opções como, categoria, nome, Fotos e descrição.
+### `npm start`
 
-### Categorias
-Categorias é a página onde podemos ver todas as categorias e excluí-las, aqui também estão os botões que derecionam para as páginas de criação e edição delas.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### Nova/Editar Categoria
-Página onde podemos editar ou criar uma categoria escolhendo seu nome e se ela é subcategoria de uma já existente.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### Desejos
-Desejos é a página onde podemos ver todos os desejos e excluí-los, aqui também estão os botões que derecionam para as páginas de criação e edição.
+### `npm test`
 
-### Novo/Editar Desejo
-Página onde podemos editar ou criar um desejo escolhendo seu nome, foto e diversos outros atributos.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Login
-Formulário com campos email e senha onde podemos fazer o login no site.
+### `npm run build`
 
-### Registre-se
-Formulário com nome, email e senha onde podemos registrar uma nova conta e assim poder entrar.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Editar dados
-Formulário com as informações do usuário logado e local onde podem ser atualizadas.  
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
