@@ -65,76 +65,6 @@ export const Container = styled.section`
   }
 `;
 
-export const CategorySelect = styled.section`
-  ${({ theme }) => css`
-    ul {
-      padding: 0px;
-      list-style: none;
-
-      span {
-        vertical-align: middle;
-      }
-
-      li {
-        background-color: white;
-        text-align: center;
-        height: 30px;
-        width: 150px;
-        position: relative;
-        margin-left: 5px;
-        padding: 5px;
-
-      }
-
-      ul {
-        display: none;
-        list-style: none;
-      }
-
-      ul li {
-        margin-left: -5px;
-        opacity: 0.8;
-        border-bottom: 1px solid #000;
-      }
-
-      ul li:hover {
-        opacity: 1;
-        background-color: #000;
-      }
-
-      ul li:hover > a {
-        color:${theme.colors.gold};
-      }
-
-      li:hover > ul {
-        display: block;
-      }
-
-      ul ul {
-        margin-left: 149px;
-        top: 0px;
-        position: absolute;
-        list-style: none;
-      }
-
-      a {
-        text-decoration: none;
-        cursor: pointer;
-        color: #000;
-      }
-
-      a:hover {
-        opacity: 1;
-      }
-     }
-    }
-
-    @media only screen and (max-width: 700px) {
-      display: none;
-    }
-  `}
-`;
-
 export const DialogZ = styled(Dialog)`
   ${({ theme }) => css`
     .MuiPaper-root {
@@ -163,8 +93,8 @@ export const DialogZ = styled(Dialog)`
     }
 
     button {
-      text-decoration: none;
       cursor: pointer;
+      text-decoration: none;
       padding: 5px 5px 5px 5px;
       color: ${theme.colors.gold};
       background-color: ${theme.colors.black};

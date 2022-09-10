@@ -17,6 +17,10 @@ export const Container = styled.div`
 
       .second {
         margin-left: ${theme.spacings.small};
+
+        button.categorySelector {
+          font-weight: 400;
+        }
       }
 
       @media only screen and (max-width: 500px) {
@@ -36,26 +40,14 @@ export const Container = styled.div`
       }
     }
 
-    // CategoryMobile
-    form > div > section {
-      margin-left: 0;
-
-      @media only screen and (max-width: 2000px) {
-        display: block;
-      }
-
-      button {
-        padding-left: 0;
-      }
-    }
-
     label {
       min-width: 150px;
+      padding-top: 5px;
     }
 
     select,
     input[type='text'] {
-      margin: 10px 0;
+      margin: 5px 0;
       height: 40px;
       width: 100%;
       padding: 0 10px;
@@ -71,8 +63,8 @@ export const Container = styled.div`
     }
 
     button.report {
-      display: block;
       cursor: pointer;
+      display: block;
       padding: 10px 15px;
       color: ${theme.colors.white};
       background-color: ${theme.colors.black};

@@ -6,7 +6,7 @@ export default (reducers) => {
     {
       key: 'CONSUMO-API',
       storage,
-      whitelist: ['auth', 'example'],
+      whitelist: ['auth'],
     },
     reducers,
   );

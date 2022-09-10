@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import MyRoute from './MyRoute';
+import PrivateRoute from './PrivateRoute';
 
 import Home from '../pages/Home';
 import Item from '../pages/Item';
-import ItemNewEdit from '../pages/ItemNewEdit';
-import ImageVideo from '../pages/ImageVideo';
+import ItemEdit from '../pages/ItemEdit';
+import File from '../pages/File';
 import Category from '../pages/Category';
 import Categories from '../pages/Categories';
 import Wishlist from '../pages/Wishlist';
@@ -17,35 +17,50 @@ import Page404 from '../pages/Page404';
 export default function Routes() {
   return (
     <Switch>
-      <MyRoute exact path="/" component={Home} isClosed />
-      <MyRoute exact path="/login/" component={Login} isClosed={false} />
-      <MyRoute exact path="/register/" component={Register} isClosed={false} />
+      <PrivateRoute exact path="/" component={Home} isClosed />
+      <PrivateRoute exact path="/login/" component={Login} isClosed={false} />
+      <PrivateRoute
+        exact
+        path="/register/"
+        component={Register}
+        isClosed={false}
+      />
 
       {/* Shows an Item */}
-      <MyRoute exact path="/item/:id" component={Item} isClosed />
+      <PrivateRoute exact path="/item/:id" component={Item} isClosed />
       {/* New Item */}
-      <MyRoute exact path="/item-new/" component={ItemNewEdit} isClosed />
+      <PrivateRoute exact path="/item-new/" component={ItemEdit} isClosed />
       {/* Edit Item */}
-      <MyRoute exact path="/item/:id/edit" component={ItemNewEdit} isClosed />
+      <PrivateRoute exact path="/item/:id/edit" component={ItemEdit} isClosed />
 
       {/* List of Wishes */}
-      <MyRoute exact path="/wishlist/" component={Wishlist} isClosed />
+      <PrivateRoute exact path="/wishlist/" component={Wishlist} isClosed />
       {/* New Wish */}
-      <MyRoute exact path="/wish/:isWish" component={ItemNewEdit} isClosed />
+      <PrivateRoute exact path="/wish/:isWish" component={ItemEdit} isClosed />
       {/* Edit Wish */}
-      <MyRoute exact path="/wish/:isWish/:id" component={ItemNewEdit} isClosed />
+      <PrivateRoute
+        exact
+        path="/wish/:isWish/:id"
+        component={ItemEdit}
+        isClosed
+      />
 
-      {/* New Image/Video */}
-      <MyRoute exact path="/imageVideo/:id" component={ImageVideo} isClosed />
+      {/* New file */}
+      <PrivateRoute exact path="/file/:id" component={File} isClosed />
 
       {/* List of Categories */}
-      <MyRoute exact path="/categories/" component={Categories} isClosed />
+      <PrivateRoute exact path="/categories/" component={Categories} isClosed />
       {/* New Category */}
-      <MyRoute exact path="/category/" component={Category} isClosed />
+      <PrivateRoute exact path="/category/" component={Category} isClosed />
       {/* Edit Category */}
-      <MyRoute exact path="/category/:id/edit" component={Category} isClosed />
+      <PrivateRoute
+        exact
+        path="/category/:id/edit"
+        component={Category}
+        isClosed
+      />
 
-      <MyRoute path="*" component={Page404} />
+      <PrivateRoute path="*" component={Page404} />
     </Switch>
   );
 }

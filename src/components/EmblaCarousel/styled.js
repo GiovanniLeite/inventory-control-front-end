@@ -44,21 +44,10 @@ export const Container = styled.div`
   .embla__slide__inner {
     position: relative;
     overflow: hidden;
-    //height: 250px;
   }
 
   .embla__slide__img {
     width: 100%;
-
-    /* position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    // min-height: 100%;
-    min-width: 100%;
-    max-width: none;
-    transform: translate(-50%, -50%); */
   }
 
   .embla--thumb {

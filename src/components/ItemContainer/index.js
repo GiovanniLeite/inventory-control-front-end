@@ -10,12 +10,17 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { toast } from 'react-toastify';
 
 import axios from '../../services/axios';
-import api_url from '../../config/api';
+import apiUrl from '../../config/api';
+import formatKm from '../../utils/formatKm';
 
 import Reports from '../Reports';
-import { formatKm } from '../../utils/format-number';
-import { DialogZ } from '../../styles/global-styles';
-import { Container, ContainerDuo, ContainerDescription, DialogRel } from './styled';
+import { DialogZ } from '../../styles/global';
+import {
+  Container,
+  ContainerDuo,
+  ContainerDescription,
+  DialogRel,
+} from './styled';
 import EmblaCarousel from '../EmblaCarousel/EmblaCarousel';
 import Loading from '../Loading';
 
@@ -23,10 +28,13 @@ export default function ItemContainer({ item }) {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
-  let fotoVideos = item.FotoVideos;
+  let files = item.Files;
 
-  if (!fotoVideos.length) fotoVideos = [{ url: `${api_url}/images/no-image.jpg`, filename: 'no-image.jpg' }];
-  const media = fotoVideos.map((fotoVideo) => fotoVideo.url);
+  if (!files.length)
+    files = [
+      { url: `${apiUrl}/images/no-image.jpg`, filename: 'no-image.jpg' },
+    ];
+  const media = files.map((file) => file.url);
   const mediaByIndex = (index) => media[index % media.length];
   const SLIDE_COUNT = media.length > 5 ? media.length : 5;
   const slides = Array.from(Array(SLIDE_COUNT).keys());
@@ -63,7 +71,11 @@ export default function ItemContainer({ item }) {
         <div id="images">
           <div id="contentCarousel">
             <h1>{item.name}</h1>
-            <EmblaCarousel slides={slides} mediaByIndex={mediaByIndex} className="embla-div" />
+            <EmblaCarousel
+              slides={slides}
+              mediaByIndex={mediaByIndex}
+              className="embla-div"
+            />
             <ul>
               <li>
                 <Link to="/item-new/" title="Novo">
@@ -199,7 +211,6 @@ export default function ItemContainer({ item }) {
           </button>
         </DialogActions>
       </DialogZ>
-      {/*START RELATORIO 3 */}
       <DialogRel
         open={openRel}
         onClose={(e) => {
@@ -221,7 +232,6 @@ export default function ItemContainer({ item }) {
         </DialogActions>
         <Reports />
       </DialogRel>
-      {/*END RELATORIO 3 */}
     </Container>
   );
 }
@@ -245,6 +255,6 @@ ItemContainer.propTypes = {
     price_my: PropTypes.string,
     is_car: PropTypes.bool,
     description: PropTypes.string,
-    FotoVideos: PropTypes.instanceOf(Array), // PropTypes.shape(PropTypes.shape({})), // PropTypes.array,
+    Files: PropTypes.instanceOf(Array), // PropTypes.shape(PropTypes.shape({})), // PropTypes.array,
   }).isRequired,
 };

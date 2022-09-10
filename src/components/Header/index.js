@@ -1,35 +1,42 @@
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { FaUserAlt, FaRegHeart, FaSignInAlt, FaSignOutAlt, FaUserPlus, FaListAlt } from 'react-icons/fa';
+import {
+  FaUserAlt,
+  FaRegHeart,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUserPlus,
+  FaListAlt,
+} from 'react-icons/fa';
 import { AiOutlinePrinter, AiOutlineCloseSquare } from 'react-icons/ai';
 import { VscNewFile } from 'react-icons/vsc';
-
-/*START RELATORIO 1 */
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import Reports from '../Reports';
-/*END RELATORIO 1 */
+
 import * as actions from '../../store/modules/auth/actions';
 
-import { Container, HamburguerUl, HamburguerLi, RightUl, RightLi, Button } from './styled';
+import {
+  Container,
+  HamburguerUl,
+  HamburguerLi,
+  RightUl,
+  RightLi,
+  Button,
+} from './styled';
+import Reports from '../Reports';
 
 export default function Header() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
-  const history = useHistory();
 
-  /*START RELATORIO 2 */
   const [open, setOpen] = useState(false);
-  /*END RELATORIO 2 */
 
   useEffect(() => {
     const handleResizeWindow = () => {
       const menu = document.getElementById('menuHamburguer');
-      const windowWidth = window.innerWidth;
-      // eslint-disable-next-line
-      windowWidth > 700 && ((menu.style.display = 'none'));
+      window.innerWidth > 700 && (menu.style.display = 'none');
     };
     // to prevent the menu from being open
     window.addEventListener('resize', handleResizeWindow);
@@ -37,14 +44,15 @@ export default function Header() {
 
   const handleHamburguer = () => {
     const menu = document.getElementById('menuHamburguer');
-    menu.style.display === 'block' ? (menu.style.display = 'none') : (menu.style.display = 'block');
+    menu.style.display === 'block'
+      ? (menu.style.display = 'none')
+      : (menu.style.display = 'block');
   };
 
   const handleLogout = (e) => {
     e.preventDefault();
-    handleHamburguer();
+    window.innerWidth <= 700 && handleHamburguer();
     dispatch(actions.loginFailure());
-    history.push('/login');
   };
 
   return (
@@ -174,7 +182,6 @@ export default function Header() {
           </>
         )}
       </RightUl>
-      {/*START RELATORIO 3 */}
       <Dialog
         open={open}
         onClose={(e) => {
@@ -195,7 +202,6 @@ export default function Header() {
         </DialogActions>
         <Reports />
       </Dialog>
-      {/*END RELATORIO 3 */}
     </Container>
   );
 }

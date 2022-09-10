@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from 'styled-components';
 
-import { GlobalStyles } from './styles/global-styles';
+import { GlobalStyles } from './styles/global';
 import { theme } from './styles/theme';
 import store, { persistor } from './store';
 import Header from './components/Header';

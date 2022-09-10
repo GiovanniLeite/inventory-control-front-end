@@ -1,9 +1,9 @@
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 
-import { returnDate } from './format-date';
+import returnDate from './returnDate';
 
-export const generatReports = (title, data) => {
+const generateReport = (title, data) => {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
   const reportTitle = [
@@ -32,7 +32,11 @@ export const generatReports = (title, data) => {
         fontSize: 9,
         margin: [0, 0, 10, 0],
       },
-      { text: item.date_sale ? item.date_sale : 'Não', fontSize: 9, alignment: 'center' },
+      {
+        text: item.date_sale ? item.date_sale : 'Não',
+        fontSize: 9,
+        alignment: 'center',
+      },
     ];
   });
 
@@ -43,10 +47,20 @@ export const generatReports = (title, data) => {
         widths: ['10%', '*', '20%', '10%'], // auto
         body: [
           [
-            { text: 'Código', style: 'tableHeader', alignment: 'center', fontSize: 10 },
+            {
+              text: 'Código',
+              style: 'tableHeader',
+              alignment: 'center',
+              fontSize: 10,
+            },
             { text: 'Nome', style: 'tableHeader', fontSize: 10 },
             { text: 'Valor', style: 'tableHeader', fontSize: 10 },
-            { text: 'Vendido', style: 'tableHeader', alignment: 'center', fontSize: 10 },
+            {
+              text: 'Vendido',
+              style: 'tableHeader',
+              alignment: 'center',
+              fontSize: 10,
+            },
           ],
           ...items,
         ],
@@ -76,7 +90,12 @@ export const generatReports = (title, data) => {
             fontSize: 9,
             margin: [20, 10, 0, 0],
           },
-          { text: `${returnDate()}`, alignment: 'center', fontSize: 9, margin: [0, 10, 0, 0] },
+          {
+            text: `${returnDate()}`,
+            alignment: 'center',
+            fontSize: 9,
+            margin: [0, 10, 0, 0],
+          },
           {
             text: `${currentPage} / ${pageCount}`,
             alignment: 'right',
@@ -96,5 +115,7 @@ export const generatReports = (title, data) => {
     footer,
   };
 
-  pdfMake.createPdf(docDefinitions).download();
+  pdfMake.createPdf(docDefinitions).download('Relatório.pdf');
 };
+
+export default generateReport;

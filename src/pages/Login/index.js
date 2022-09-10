@@ -6,8 +6,8 @@ import { get } from 'lodash';
 
 import * as actions from '../../store/modules/auth/actions';
 
-import Loading from '../../components/Loading';
 import MainContainer from '../../components/MainContainer';
+import Loading from '../../components/Loading';
 import { Container, Form } from './styled';
 
 export default function Login(props) {
@@ -74,9 +74,6 @@ export default function Login(props) {
             </label>
             <button type="submit" id="save">
               Acessar
-            </button>
-            <button type="button" id="loading">
-              Carregando ...
             </button>
           </Form>
         </Container>

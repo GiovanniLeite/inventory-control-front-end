@@ -15,7 +15,7 @@ export const theme = {
     error: '#ff0000',
   },
   spacings: {
-    verySmall: '0.5rem',
+    superSmall: '0.5rem',
     small: '1rem',
     medium: '2rem',
     large: '3rem',

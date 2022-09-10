@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as Styled from './styled';
+import { Container } from './styled';
 
 export default function MainContainer({ children }) {
-  return <Styled.Container>{children}</Styled.Container>;
+  return <Container>{children}</Container>;
 }
 
 MainContainer.propTypes = {

@@ -1,20 +1,16 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { FaAngleDown } from 'react-icons/fa';
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
-import { CategorySelect } from '../../styles/global-styles';
-import Loading from '../../components/Loading';
 import MainContainer from '../../components/MainContainer';
+import Loading from '../../components/Loading';
+import CategorySelector from '../../components/CategorySelector';
 import { Container, Form } from './styled';
-import { assembleCategoriesUl } from '../../utils/assemble-categories-ul';
 
 export default function Category({ match, history }) {
   const dispatch = useDispatch();
@@ -26,13 +22,17 @@ export default function Category({ match, history }) {
   const [idParentParent, setIdParentParent] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleCategory = (nameCategory, idClicked, idParentZ, idParentParentZ) => {
+  const handleCategory = (
+    nameCategory,
+    idClicked,
+    idParentZ,
+    idParentParentZ,
+  ) => {
     if (idParentParentZ !== 0) {
       toast.error('Categorias devem ter apenas três níveis');
     } else if (id) {
       // if edit
       const idZ = parseInt(id, 10);
-
       if (idClicked === idZ) {
         toast.error('Categoria Selecionada deve ser diferente da atual');
       } else if (idParentZ === idZ || idParentParentZ === idZ) {
@@ -49,17 +49,15 @@ export default function Category({ match, history }) {
   };
 
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       try {
         setIsLoading(true);
 
-        //const { data } = await axios.get(`/categories/`);
         const { data } = await axios.get('/categories/category-list');
         setCategories(data);
 
         if (!id) {
           setIsLoading(false);
-          document.querySelector('#li').appendChild(assembleCategoriesUl(0, data, handleCategory));
           return;
         }
 
@@ -69,19 +67,14 @@ export default function Category({ match, history }) {
         setIdParentParent(responseCat[0].id_parent_parent);
 
         setIsLoading(false);
-        // Main categories cannot become Subcategories
-        if (!(responseCat[0].id_parent === 0 && responseCat[0].id_parent_parent === 0)) {
-          document.querySelector('#li').appendChild(assembleCategoriesUl(0, data, handleCategory));
-        }
       } catch (err) {
         setIsLoading(false);
         const status = get(err, 'response.status', 0);
         const errors = get(err, 'response.data.errors', []);
 
         if (status === 400) errors.map((error) => toast.error(error));
-        history.push('/');
       }
-    }
+    };
 
     getData();
     // eslint-disable-next-line
@@ -97,7 +90,6 @@ export default function Category({ match, history }) {
       document.getElementById('name').style.borderColor = '#ff0000';
     }
 
-    const idParentZ = document.getElementById('inputCat').value;
     if (idParent === '') {
       toast.error('Categoria não selecionada');
       formErrors = true;
@@ -116,16 +108,12 @@ export default function Category({ match, history }) {
           id_parent_parent: idParentParent,
         });
         toast.success('Categoria editada com sucesso!');
-        //const { data } = await axios.get(`/categories/`);
-        const { data } = await axios.get('/categories/category-list');
+
         setIsLoading(false);
-        if (!(idParent === 0 && idParentParent === 0)) {
-          document.querySelector('#li').appendChild(assembleCategoriesUl(0, data, handleCategory));
-        }
       } else {
         const { data } = await axios.post(`/categories/`, {
           name,
-          id_parent: idParentZ,
+          id_parent: idParent,
           id_parent_parent: idParentParent,
         });
         toast.success('Categoria criada com sucesso!');
@@ -147,7 +135,7 @@ export default function Category({ match, history }) {
     }
   };
 
-  document.title = `${name} - Inventory`;
+  document.title = `${id ? 'Editar Categoria' : 'Nova Categoria'} - Inventory`;
 
   return (
     <MainContainer>
@@ -168,32 +156,27 @@ export default function Category({ match, history }) {
                   placeholder="Nome da categoria"
                 />
               </label>
-
-              <CategorySelect>
-                <ul>
-                  <li
-                    id="li"
-                    title={
-                      idParent === 0 && idParentParent === 0
-                        ? 'Categorias principais não podem se tornar subcategorias'
-                        : 'Categoria Superior'
-                    }
-                    style={{ textAlign: 'left' }}
-                  >
-                    <strong>*Categoria:</strong>
-                    <span>
-                      <FaAngleDown />
-                    </span>
-                  </li>
-                </ul>
-                <input id="inputCat" type="number" disabled="disabled" value={idParent} placeholder="Id da categoria" />
-              </CategorySelect>
-
+              {
+                // visible only if not main category
+                !(id && idParent === 0 && idParentParent === 0) && (
+                  <>
+                    <CategorySelector
+                      categories={categories}
+                      handle={handleCategory}
+                      asterisk
+                    />
+                    <input
+                      id="inputCat"
+                      type="number"
+                      value={idParent}
+                      disabled="disabled"
+                      placeholder="Categoria ascendente"
+                    />
+                  </>
+                )
+              }
               <button type="submit" id="save">
                 Enviar
-              </button>
-              <button type="button" id="loading">
-                Carregando ...
               </button>
             </Form>
           </>

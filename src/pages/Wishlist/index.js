@@ -5,15 +5,14 @@ import { get } from 'lodash';
 import { FaRegHeart, FaEdit } from 'react-icons/fa';
 import { IoMdTrash } from 'react-icons/io';
 import { toast } from 'react-toastify';
-
 import DialogActions from '@material-ui/core/DialogActions';
 
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
-import Loading from '../../components/Loading';
 import MainContainer from '../../components/MainContainer';
-import { DialogZ } from '../../styles/global-styles';
+import Loading from '../../components/Loading';
+import { DialogZ } from '../../styles/global';
 import { Container, ContainerZ, Picture, New } from './styled';
 
 export default function Wishlist() {
@@ -25,7 +24,7 @@ export default function Wishlist() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       try {
         setIsLoading(true);
         let response = await axios.get('/items');
@@ -46,7 +45,7 @@ export default function Wishlist() {
 
         if (status === 401) dispatch(actions.loginFailure());
       }
-    }
+    };
 
     getData();
   }, [dispatch]);
@@ -91,8 +90,8 @@ export default function Wishlist() {
             {obj.map((objZ, index) => (
               <div key={String(objZ.id)}>
                 <Picture>
-                  {get(objZ, 'FotoVideos[0].url', false) ? (
-                    <img src={objZ.FotoVideos[0].url} alt="" />
+                  {get(objZ, 'Files[0].url', false) ? (
+                    <img src={objZ.Files[0].url} alt="" />
                   ) : (
                     <FaRegHeart size={36} />
                   )}

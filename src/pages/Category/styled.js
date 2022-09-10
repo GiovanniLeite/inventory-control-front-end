@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.section`
   max-width: 480px;
   background: #fff;
   margin: 20px auto;
@@ -19,10 +19,6 @@ export const Container = styled.div`
 `;
 
 export const Form = styled.form`
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-
   label {
     font-weight: bold;
   }
@@ -39,7 +35,12 @@ export const Form = styled.form`
     }
   }
 
-  button {
+  input#inputCat {
+    margin-top: 35px;
+  }
+
+  button#save {
+    cursor: pointer;
     border: none;
     padding: 10px;
     color: ${({ theme }) => theme.colors.white};
@@ -49,14 +50,6 @@ export const Form = styled.form`
     &:focus {
       color: ${({ theme }) => theme.colors.gold};
       box-shadow: 0 0 10px #666;
-      cursor: pointer;
     }
-  }
-
-  button#loading {
-    display: none;
-    color: ${({ theme }) => theme.colors.gold};
-    box-shadow: 0 0 10px #666;
-    animation: pulse 1.5s infinite;
   }
 `;

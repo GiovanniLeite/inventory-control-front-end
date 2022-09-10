@@ -7,10 +7,10 @@ import { toast } from 'react-toastify';
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
-import { Container, ItemDetails } from './styled';
 import MainContainer from '../../components/MainContainer';
-import ItemContainer from '../../components/ItemContainer';
 import Loading from '../../components/Loading';
+import { Container, ItemDetails } from './styled';
+import ItemContainer from '../../components/ItemContainer';
 
 export default function Item({ match, history }) {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export default function Item({ match, history }) {
   useEffect(() => {
     if (!id) return;
 
-    async function getData() {
+    const getData = async () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get(`/items/${id}`);
@@ -46,9 +46,8 @@ export default function Item({ match, history }) {
         }
 
         if (status === 401) dispatch(actions.loginFailure());
-        history.push('/');
       }
-    }
+    };
 
     getData();
   }, [id, history, dispatch]);

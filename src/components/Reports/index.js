@@ -5,11 +5,11 @@ import { get } from 'lodash';
 import { toast } from 'react-toastify';
 
 import * as actions from '../../store/modules/auth/actions';
+import generateReport from '../../utils/generateReport';
 
-import CategoryMobile from '../../components/CategoryMobile';
 import Loading from '../../components/Loading';
 import { Container } from './styled';
-import { generatReports } from '../../utils/generate-report';
+import CategorySelector from '../../components/CategorySelector';
 
 export default function Reports() {
   const [type, setType] = useState('items');
@@ -24,7 +24,7 @@ export default function Reports() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       try {
         setIsLoading(true);
 
@@ -37,7 +37,6 @@ export default function Reports() {
         const status = get(err, 'response.status', 0);
         const data = get(err, 'response.data', {});
         const errors = get(data, 'errors', []);
-        console.log(err);
 
         if (errors.length > 0) {
           errors.map((error) => toast.error(error));
@@ -47,13 +46,13 @@ export default function Reports() {
 
         if (status === 401) dispatch(actions.loginFailure());
       }
-    }
+    };
 
     getData();
     // eslint-disable-next-line
   }, [dispatch]);
 
-  function handleCategory(nameCategory, id, idParent, idParentParent) {
+  const handleCategory = (nameCategory, id, idParent, idParentParent) => {
     try {
       if (idParent === 0 && idParentParent === 0) {
         // clicked on a main category
@@ -82,7 +81,7 @@ export default function Reports() {
         toast.error('Erro desconhecido');
       }
     }
-  }
+  };
 
   const handleReport = async () => {
     try {
@@ -91,7 +90,9 @@ export default function Reports() {
 
       if (category1 || category2 || category3) {
         // if selected some category
-        response = await axios.get(`/items/categories/${category1}&${category2}&${category3}`);
+        response = await axios.get(
+          `/items/categories/${category1}&${category2}&${category3}`,
+        );
       } else {
         response = await axios.get('/items/');
       }
@@ -115,7 +116,7 @@ export default function Reports() {
         data = data.filter((e) => !e.date_sale);
       }
 
-      generatReports('Itens', data);
+      generateReport('Itens', data);
 
       setIsLoading(false);
     } catch (err) {
@@ -149,14 +150,24 @@ export default function Reports() {
               </select>
             </label>
             <div className="second">
-              <CategoryMobile categories={categories} handle={handleCategory} />
-              <input type="text" id="inputCatReport" placeholder="Categoria" disabled />
+              <CategorySelector
+                categories={categories}
+                handle={handleCategory}
+              />
+              <input
+                type="text"
+                id="inputCatReport"
+                placeholder="Categoria"
+                disabled
+              />
             </div>
             <div>
               <input
                 type="checkbox"
                 id="onlyCars"
-                onChange={() => (onlyCars ? setOnlyCars(false) : setOnlyCars(true))}
+                onChange={() =>
+                  onlyCars ? setOnlyCars(false) : setOnlyCars(true)
+                }
               />
               <label htmlFor="onlyCars">Apenas carros</label>
             </div>
@@ -165,7 +176,9 @@ export default function Reports() {
                 type="checkbox"
                 id="hideSold"
                 className="second"
-                onChange={() => (hideSold ? setHideSold(false) : setHideSold(true))}
+                onChange={() =>
+                  hideSold ? setHideSold(false) : setHideSold(true)
+                }
               />
               <label htmlFor="hideSold">Ocultar vendidos</label>
             </div>

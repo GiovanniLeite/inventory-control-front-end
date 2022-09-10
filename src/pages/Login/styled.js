@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.section`
   max-width: 480px;
   background: #fff;
   margin: 20px auto;
@@ -52,12 +52,5 @@ export const Form = styled.form`
       box-shadow: 0 0 10px #666;
       cursor: pointer;
     }
-  }
-
-  button#loading {
-    display: none;
-    color: ${({ theme }) => theme.colors.gold};
-    box-shadow: 0 0 10px #666;
-    animation: pulse 1.5s infinite;
   }
 `;

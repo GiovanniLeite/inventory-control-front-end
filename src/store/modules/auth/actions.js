@@ -1,50 +1,50 @@
 import * as types from '../types';
 
-export function loginRequest(payload) {
+export const loginRequest = (payload) => {
   return {
     type: types.LOGIN_REQUEST,
     payload,
   };
-}
+};
 
-export function loginSuccess(payload) {
+export const loginSuccess = (payload) => {
   return {
     type: types.LOGIN_SUCCESS,
     payload,
   };
-}
+};
 
-export function loginFailure(payload) {
+export const loginFailure = (payload) => {
   return {
     type: types.LOGIN_FAILURE,
     payload,
   };
-}
+};
 
-export function registerRequest(payload) {
+export const registerRequest = (payload) => {
   return {
     type: types.REGISTER_REQUEST,
     payload,
   };
-}
+};
 
-export function registerUpdatedSuccess(payload) {
+export const registerUpdatedSuccess = (payload) => {
   return {
     type: types.REGISTER_UPDATED_SUCCESS,
     payload,
   };
-}
+};
 
-export function registerCreatedSuccess(payload) {
+export const registerCreatedSuccess = (payload) => {
   return {
     type: types.REGISTER_CREATED_SUCCESS,
     payload,
   };
-}
+};
 
-export function registerFailure(payload) {
+export const registerFailure = (payload) => {
   return {
     type: types.REGISTER_FAILURE,
     payload,
   };
-}
+};

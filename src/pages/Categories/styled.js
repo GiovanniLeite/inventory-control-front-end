@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Container = styled.div`
+export const Container = styled.section`
   max-width: 480px;
   background: #fff;
   margin: 20px auto;
@@ -35,12 +35,12 @@ export const CategoriesContainer = styled.div`
     }
 
     a {
+      cursor: pointer;
       padding: 5px 10px;
       color: ${({ theme }) => theme.colors.white};
       background-color: ${({ theme }) => theme.colors.black};
       box-shadow: 0 0 10px #666;
       border-radius: 3px;
-      cursor: pointer;
 
       &:hover {
         color: ${({ theme }) => theme.colors.gold};
@@ -49,14 +49,19 @@ export const CategoriesContainer = styled.div`
     }
   }
 
+  // main category
   div.main {
     background-color: #eee;
   }
-  div.sub {
+
+  // subcategory lvl 1
+  div.sub1 {
     display: none;
     background-color: #d6d6d6;
   }
-  div.subsub {
+
+  // subcategory lvl 2
+  div.sub2 {
     display: none;
     background-color: #b0b0b0;
   }

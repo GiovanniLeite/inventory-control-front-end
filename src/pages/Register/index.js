@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 
 import * as actions from '../../store/modules/auth/actions';
 
-import Loading from '../../components/Loading';
 import MainContainer from '../../components/MainContainer';
+import Loading from '../../components/Loading';
 import { Container, Form } from './styled';
 
 export default function Register(props) {
@@ -22,14 +22,14 @@ export default function Register(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!id) return;
 
     setName(nameStored);
     setEmail(emailStored);
   }, [emailStored, id, nameStored]);
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let formErrors = false;
@@ -55,7 +55,7 @@ export default function Register(props) {
     if (formErrors) return;
 
     dispatch(actions.registerRequest({ name, email, password, id, history }));
-  }
+  };
 
   document.title = `Register - Inventory`;
 
@@ -102,9 +102,6 @@ export default function Register(props) {
 
             <button type="submit" id="save">
               {id ? 'Salvar' : 'Criar conta'}
-            </button>
-            <button type="button" id="loading">
-              Carregando ...
             </button>
           </Form>
         </Container>

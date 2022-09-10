@@ -40,7 +40,6 @@ export const ContainerDuo = styled.section`
 
       div#contentCarousel {
         background-color: ${theme.colors.white};
-        //padding: ${theme.spacings.medium};
         box-shadow: 0 0 10px #666;
 
         h1 {
@@ -63,18 +62,18 @@ export const ContainerDuo = styled.section`
         }
 
         ul li a {
-          text-decoration: none;
           cursor: pointer;
+          text-decoration: none;
           padding: 5px 10px;
           color: ${theme.colors.white};
           background-color: ${theme.colors.black};
           box-shadow: 0 0 7px #666;
           border-radius: 3px;
-        }
 
-        ul li a:hover {
-          color: ${theme.colors.gold};
-          opacity: 1;
+          &:hover {
+            color: ${theme.colors.gold};
+            opacity: 1;
+          }
         }
 
         @media only screen and (max-width: 1150px) {
@@ -85,23 +84,17 @@ export const ContainerDuo = styled.section`
         }
 
         @media only screen and (max-width: 850px) {
-          padding: ${theme.spacings.verySmall};
+          padding: ${theme.spacings.superSmall};
 
           h1 {
             display: block;
             font-size: 140%;
             text-align: center;
             padding: 2px;
-            //margin-bottom: 10px;
           }
 
           div > div.embla {
             max-width: none;
-          }
-
-          div > div.embla > div.embla__viewport {
-            /* background-color: red;
-            width: 100%; */
           }
 
           ul {
@@ -203,7 +196,7 @@ export const ContainerDescription = styled.section`
     }
 
     @media only screen and (max-width: 700px) {
-      padding: ${theme.spacings.verySmall};
+      padding: ${theme.spacings.superSmall};
 
       p {
         font-size: 14px;

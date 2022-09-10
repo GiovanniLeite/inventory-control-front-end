@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { FaAngleDown, FaEdit } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import InputMask from 'react-input-mask';
@@ -10,16 +10,14 @@ import CurrencyInput from 'react-currency-input-field';
 
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
+import apiUrl from '../../config/api';
 
-import { CategorySelect } from '../../styles/global-styles';
-import CategoryMobile from '../../components/CategoryMobile';
-import Loading from '../../components/Loading';
 import MainContainer from '../../components/MainContainer';
+import Loading from '../../components/Loading';
+import CategorySelector from '../../components/CategorySelector';
 import { Container, Picture, Form } from './styled';
-import { assembleCategoriesUl } from '../../utils/assemble-categories-ul';
-import api_url from '../../config/api';
 
-export default function ItemNewEdit({ match, history }) {
+export default function ItemEdit({ match, history }) {
   const dispatch = useDispatch();
 
   const id = get(match, 'params.id', '');
@@ -30,7 +28,7 @@ export default function ItemNewEdit({ match, history }) {
   const [other, setOther] = useState('');
   const [brand, setBrand] = useState('');
   const [dateRelease, setDateRelease] = useState('');
-  const [newUsed, setNewUsed] = useState('');
+  const [newUsed, setNewUsed] = useState(false);
   const [customCode, setCustomCode] = useState('');
   const [quantity, setQuantity] = useState('');
   const [countryManufactury, setCountryManufactury] = useState('');
@@ -46,13 +44,18 @@ export default function ItemNewEdit({ match, history }) {
   const [idSub1Category, setIdSub1Category] = useState(0);
   const [idSub2Category, setIdSub2Category] = useState(0);
   const [idCat, setIdCat] = useState(0);
-  const [fotoVideo, setFotoVideo] = useState('');
+  const [file, setFile] = useState('');
 
   const [categories, setCategories] = useState([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
-  function handleCategory(nameCategory, idClicked, idParent, idParentParent) {
+  const handleCategory = (
+    nameCategory,
+    idClicked,
+    idParent,
+    idParentParent,
+  ) => {
     if (idParent === 0 && idParentParent === 0) {
       // clicked on a main category
       setIdMainCategory(idClicked);
@@ -71,29 +74,25 @@ export default function ItemNewEdit({ match, history }) {
     }
     // show the correct id on inputCat
     setIdCat(idClicked);
+  };
 
-    const inputCategory = document.getElementById('inputCat');
-    inputCategory.value = nameCategory;
-  }
-
-  React.useEffect(() => {
-    async function getData() {
+  useEffect(() => {
+    const getData = async () => {
       try {
         setIsLoading(true);
 
-        //const response = await axios.get(`/categories/`);
         const response = await axios.get('/categories/category-list');
         setCategories(response.data);
 
         if (!id) {
           /* START clears all form fields if the user is coming from editing to the new */
-          setFotoVideo('');
+          setFile('');
           setName('');
           setKm('');
           setOther('');
           setBrand('');
           setDateRelease('');
-          setNewUsed('');
+          setNewUsed(false);
           setCustomCode('');
           setQuantity('');
           setCountryManufactury('');
@@ -112,15 +111,14 @@ export default function ItemNewEdit({ match, history }) {
           /* END clears all form fields if the user is coming from editing to the new */
 
           setIsLoading(false);
-          document.querySelector('#li').appendChild(assembleCategoriesUl(0, response.data, handleCategory));
 
           return;
         }
 
         const { data } = await axios.get(`/items/${id}`);
-        const elem = get(data, 'FotoVideos[0].url', '');
+        const elem = get(data, 'Files[0].url', '');
 
-        setFotoVideo(elem);
+        setFile(elem);
 
         setName(data.name);
         setKm(data.km);
@@ -153,23 +151,20 @@ export default function ItemNewEdit({ match, history }) {
         }
 
         setIsLoading(false);
-
-        document.querySelector('#li').appendChild(assembleCategoriesUl(0, response.data, handleCategory));
       } catch (err) {
         setIsLoading(false);
         const status = get(err, 'response.status', 0);
         const errors = get(err, 'response.data.errors', []);
 
         if (status === 400) errors.map((error) => toast.error(error));
-        history.push('/');
       }
-    }
+    };
 
     getData();
     // eslint-disable-next-line
   }, [id, history]);
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let formErrors = false;
 
@@ -223,6 +218,7 @@ export default function ItemNewEdit({ match, history }) {
           id_sub2_category: idSub2Category,
         });
         toast.success('Editado com sucesso!');
+        setIsLoading(false);
       } else {
         const { data } = await axios.post(`/items/`, {
           name,
@@ -247,10 +243,11 @@ export default function ItemNewEdit({ match, history }) {
           id_sub2_category: idSub2Category,
         });
         toast.success('Criado com sucesso!');
-        isWish ? history.push(`/wish/${isWish}/${data.id}`) : history.push(`/item/${data.id}/edit`);
+        isWish
+          ? history.push(`/wish/${isWish}/${data.id}`)
+          : history.push(`/item/${data.id}/edit`);
+        setIsLoading(false);
       }
-      setIsLoading(false);
-      document.querySelector('#li').appendChild(assembleCategoriesUl(0, categories, handleCategory));
     } catch (err) {
       setIsLoading(false);
       const status = get(err, 'response.status', 0);
@@ -265,32 +262,25 @@ export default function ItemNewEdit({ match, history }) {
 
       if (status === 401) dispatch(actions.loginFailure());
     }
-  }
+  };
 
-  let title1 = '';
-  let title2 = '';
-  if (isWish) {
-    title1 = id ? `Editar Desejo` : 'Novo Desejo';
-  } else if (!isWish) {
-    title2 = id ? `Editar Item` : 'Novo Item';
-  }
-  document.title = `${title1 || title2} - Inventory`;
+  document.title = 'Item - Inventory';
 
   return (
     <MainContainer>
       <Loading isLoading={isLoading} />
       {!isLoading && get(categories[0], 'name', false) && (
         <Container>
-          <h1>{title1 || title2}</h1>
+          <h1>Item</h1>
           {id && (
             <Picture>
-              {fotoVideo ? (
-                <img src={fotoVideo} alt={fotoVideo} />
+              {file ? (
+                <img src={file} alt={file} />
               ) : (
-                <img src={`${api_url}/images/no-image.jpg`} alt="imageVideo" />
+                <img src={`${apiUrl}/images/no-image.jpg`} alt="file" />
               )}
 
-              <Link to={`/imageVideo/${id}`}>
+              <Link to={`/file/${id}`}>
                 <FaEdit size={24} />
               </Link>
             </Picture>
@@ -322,7 +312,11 @@ export default function ItemNewEdit({ match, history }) {
 
               <label htmlFor="isCar">
                 É um carro?:
-                <select id="isCar" value={isCar} onChange={(e) => setIsCar(e.target.value)}>
+                <select
+                  id="isCar"
+                  value={isCar}
+                  onChange={(e) => setIsCar(e.target.value)}
+                >
                   <option value>Sim</option>
                   <option value={false}>Não</option>
                 </select>
@@ -395,7 +389,11 @@ export default function ItemNewEdit({ match, history }) {
               </label>
               <label htmlFor="newUsed">
                 Estado:
-                <select id="newUsed" value={newUsed} onChange={(e) => setNewUsed(e.target.value)}>
+                <select
+                  id="newUsed"
+                  value={newUsed}
+                  onChange={(e) => setNewUsed(e.target.value)}
+                >
                   <option value>Novo</option>
                   <option value={false}>Usado</option>
                 </select>
@@ -476,22 +474,26 @@ export default function ItemNewEdit({ match, history }) {
                 placeholder="Descrição .."
               />
             </label>
-            <CategorySelect>
-              <ul>
-                <li id="li" style={{ textAlign: 'left' }}>
-                  <strong title="Campo Obrigatório">*Categoria:</strong>
-                  <span>
-                    <FaAngleDown />
-                  </span>
-                </li>
-              </ul>
-            </CategorySelect>
-            <CategoryMobile categories={categories} handle={handleCategory} />
-            <input id="inputCat" type="text" value={idCat} placeholder="Categoria" disabled="disabled" />
+            <CategorySelector
+              categories={categories}
+              handle={handleCategory}
+              asterisk
+            />
+            <input
+              id="inputCat"
+              type="text"
+              value={idCat}
+              placeholder="Categoria"
+              disabled="disabled"
+            />
             {isWish && (
               <label htmlFor="isItem">
                 Transferir para Item?
-                <select id="isItem" value={isItem} onChange={(e) => setIsItem(e.target.value)}>
+                <select
+                  id="isItem"
+                  value={isItem}
+                  onChange={(e) => setIsItem(e.target.value)}
+                >
                   <option value>Sim</option>
                   <option value={false}>Não</option>
                 </select>
@@ -508,7 +510,7 @@ export default function ItemNewEdit({ match, history }) {
   );
 }
 
-ItemNewEdit.propTypes = {
+ItemEdit.propTypes = {
   match: PropTypes.shape({}).isRequired,
   history: PropTypes.shape([]).isRequired,
 };

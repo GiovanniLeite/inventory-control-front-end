@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { Container, PostCardCategory, PostCardCover, PostCardHeading } from './styled';
+import {
+  Container,
+  PostCardCategory,
+  PostCardCover,
+  PostCardHeading,
+} from './styled';
 
 export default function PostCard({ slug, title, cover, brand }) {
   return (

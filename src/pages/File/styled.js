@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.section`
   max-width: 480px;
   background: #fff;
   margin: 20px auto;
@@ -19,6 +19,7 @@ export const Title = styled.h1`
 
 export const Form = styled.form`
   label {
+    cursor: pointer;
     width: 280px;
     height: 180px;
     display: flex;
@@ -27,7 +28,6 @@ export const Form = styled.form`
     background: #eee;
     border: 5px dashed ${({ theme }) => theme.colors.darkGray};
     margin: 30px auto;
-    cursor: pointer;
     overflow: hidden;
 
     img {

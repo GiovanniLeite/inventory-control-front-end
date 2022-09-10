@@ -3,17 +3,17 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import { FaListAlt, FaEdit, FaRegArrowAltCircleDown } from 'react-icons/fa';
+import { IoMdTrash } from 'react-icons/io';
 import { toast } from 'react-toastify';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 
-import Loading from '../../components/Loading';
 import MainContainer from '../../components/MainContainer';
-import { DialogZ } from '../../styles/global-styles';
+import Loading from '../../components/Loading';
+import { DialogZ } from '../../styles/global';
 import { Container, CategoriesContainer, Picture, New } from './styled';
-import { IoMdTrash } from 'react-icons/io';
 
 export default function Categories() {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function Categories() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get('/categories/category-list');
@@ -44,7 +44,7 @@ export default function Categories() {
 
         if (status === 401) dispatch(actions.loginFailure());
       }
-    }
+    };
 
     getData();
   }, [dispatch]);
@@ -73,10 +73,22 @@ export default function Categories() {
   };
 
   const handleSub = async (id) => {
-    const subs = document.getElementsByClassName(`sub${id}`);
-    if (subs) {
-      for (const sub of subs) {
-        sub.style.display === 'grid' ? (sub.style.display = 'none') : (sub.style.display = 'grid');
+    let subs = document.getElementsByClassName(`sub${id}`);
+
+    if (subs[0]) {
+      // to hide subsub if exists
+      if (subs[0].style.display === 'grid') {
+        const subsubs = document.getElementsByClassName(`subsub${id}`);
+        if (subsubs) {
+          subs = [...subs, ...subsubs];
+          for (const sub of subs) {
+            sub.style.display = 'none';
+          }
+        }
+      } else {
+        for (const sub of subs) {
+          sub.style.display = 'grid';
+        }
       }
     }
   };
@@ -100,12 +112,12 @@ export default function Categories() {
               let cat = 'Categoria Principal';
 
               if (objZ.id_parent !== 0 && objZ.id_parent_parent === 0) {
-                // subcategory1
-                categoryType = `sub sub${objZ.id_parent}`;
+                // subcategory lvl 1
+                categoryType = `sub1 sub${objZ.id_parent}`;
                 cat = 'Subcategoria nível 1';
               } else if (objZ.id_parent !== 0 && objZ.id_parent_parent !== 0) {
-                // subcategory2
-                categoryType = `subsub sub${objZ.id_parent}`;
+                // subcategory lvl 2
+                categoryType = `sub2 sub${objZ.id_parent} subsub${objZ.id_parent_parent}`;
                 cat = 'Subcategoria nível 2';
               }
 

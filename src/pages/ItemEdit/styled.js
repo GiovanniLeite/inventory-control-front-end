@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.section`
   max-width: 120rem;
   background: #fff;
   margin: 20px auto;
@@ -83,9 +83,7 @@ export const Form = styled.form`
   }
 
   input#inputCat {
-    @media only screen and (max-width: 700px) {
-      margin-top: 40px;
-    }
+    margin-top: 35px;
   }
 
   textarea {

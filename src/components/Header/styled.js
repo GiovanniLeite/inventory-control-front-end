@@ -12,9 +12,9 @@ export const Container = styled.header`
     }
 
     button {
+      cursor: pointer;
       display: none;
       float: left;
-      cursor: pointer;
       border: none;
       background: ${theme.colors.primary};
 
@@ -106,7 +106,7 @@ export const Button = styled.button`
     font-size: 100%;
     vertical-align: middle;
 
-    &&:hover {
+    &:hover {
       color: ${theme.colors.gold};
       opacity: 1;
     }

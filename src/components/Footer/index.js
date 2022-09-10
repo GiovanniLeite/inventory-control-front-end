@@ -7,9 +7,7 @@ export default function Footer() {
     <Container>
       <div />
       Desenvolvido por Giovanni M. de O. Leite
-      <br />
-      Contato: giovanni.m.leite@outlook.com
-      <br />© Copyright 2020-2021
+      <br />© Copyright 2020-2022
     </Container>
   );
 }
