@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -17,15 +17,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 
 import * as actions from '../../store/modules/auth/actions';
 
-import {
-  Container,
-  HamburguerUl,
-  HamburguerLi,
-  RightUl,
-  RightLi,
-  Button,
-} from './styled';
 import Reports from '../Reports';
+import { Container, Button } from './styled';
 
 export default function Header() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -35,7 +28,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleResizeWindow = () => {
-      const menu = document.getElementById('menuHamburguer');
+      const menu = document.querySelector('#menuHamburguer');
       window.innerWidth > 700 && (menu.style.display = 'none');
     };
     // to prevent the menu from being open
@@ -43,7 +36,7 @@ export default function Header() {
   }, []);
 
   const handleHamburguer = () => {
-    const menu = document.getElementById('menuHamburguer');
+    const menu = document.querySelector('#menuHamburguer');
     menu.style.display === 'block'
       ? (menu.style.display = 'none')
       : (menu.style.display = 'block');
@@ -65,123 +58,123 @@ export default function Header() {
         </svg>
       </button>
 
-      <HamburguerUl id="menuHamburguer">
-        <HamburguerLi>
+      <ul id="menuHamburguer">
+        <li>
           <Link to="/item-new/" onClick={handleHamburguer}>
             <VscNewFile /> Novo Item
           </Link>
-        </HamburguerLi>
-        <HamburguerLi>
+        </li>
+        <li>
           <Link to="/wishlist/" onClick={handleHamburguer}>
             <FaRegHeart /> Desejos
           </Link>
-        </HamburguerLi>
-        <HamburguerLi>
+        </li>
+        <li>
           <Link to="/categories" onClick={handleHamburguer}>
             <FaListAlt /> Categorias
           </Link>
-        </HamburguerLi>
-        <HamburguerLi>
-          <Link
-            to="/"
-            onClick={(e) => {
-              e.preventDefault();
-              handleHamburguer();
-              setOpen(true);
-            }}
-          >
-            <AiOutlinePrinter /> Relatórios
-          </Link>
-        </HamburguerLi>
+        </li>
         {isLoggedIn ? (
           <>
-            <HamburguerLi>
+            <li>
+              <Link
+                to="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleHamburguer();
+                  setOpen(true);
+                }}
+              >
+                <AiOutlinePrinter /> Relatórios
+              </Link>
+            </li>
+            <li>
               <Link to="/register" onClick={handleHamburguer}>
                 <FaUserPlus /> Conta
               </Link>
-            </HamburguerLi>
-            <HamburguerLi>
+            </li>
+            <li>
               <Link to="/logout" onClick={handleLogout}>
                 <FaSignOutAlt /> Sair
               </Link>
-            </HamburguerLi>
+            </li>
           </>
         ) : (
           <>
-            <HamburguerLi>
+            <li>
               <Link to="/register" onClick={handleHamburguer}>
                 <FaUserAlt /> Registrar
               </Link>
-            </HamburguerLi>
-            <HamburguerLi>
+            </li>
+            <li>
               <Link to="/login" onClick={handleHamburguer}>
                 <FaSignInAlt /> Entrar
               </Link>
-            </HamburguerLi>
+            </li>
           </>
         )}
-      </HamburguerUl>
+      </ul>
 
-      <Link to="/" id="home">
+      <Link to="/" className="homeLogo">
         Inventory
       </Link>
 
-      <RightUl>
-        <RightLi>
+      <ul className="deskMenu">
+        <li>
           <Link to="/item-new/" title="Novo Item">
             <VscNewFile />
           </Link>
-        </RightLi>
-        <RightLi>
+        </li>
+        <li>
           <Link to="/wishlist/" title="Desejos">
             <FaRegHeart />
           </Link>
-        </RightLi>
-        <RightLi>
+        </li>
+        <li>
           <Link to="/categories" title="Categorias">
             <FaListAlt />
           </Link>
-        </RightLi>
-        <RightLi>
-          <Link
-            to="/"
-            onClick={(e) => {
-              e.preventDefault();
-              setOpen(true);
-            }}
-            title="Relatórios"
-          >
-            <AiOutlinePrinter />
-          </Link>
-        </RightLi>
+        </li>
         {isLoggedIn ? (
           <>
-            <RightLi>
+            <li>
+              <Link
+                to="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(true);
+                }}
+                title="Relatórios"
+              >
+                <AiOutlinePrinter />
+              </Link>
+            </li>
+            <li>
               <Link to="/register" title="Conta">
                 <FaUserAlt />
               </Link>
-            </RightLi>
-            <RightLi>
+            </li>
+            <li>
               <Link onClick={handleLogout} to="/logout" title="Sair">
                 <FaSignOutAlt />
               </Link>
-            </RightLi>
+            </li>
           </>
         ) : (
           <>
-            <RightLi>
+            <li>
               <Link to="/register" title="Registrar">
                 <FaUserPlus />
               </Link>
-            </RightLi>
-            <RightLi>
+            </li>
+            <li>
               <Link to="/login" title="Sair">
                 <FaSignInAlt />
               </Link>
-            </RightLi>
+            </li>
           </>
         )}
-      </RightUl>
+      </ul>
       <Dialog
         open={open}
         onClose={(e) => {

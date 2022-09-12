@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useEmblaCarousel } from 'embla-carousel/react';
 import { Thumb } from './EmblaCarouselThumb';
 import { Container } from './styled';
 
 // eslint-disable-next-line
-const EmblaCarousel = ({ slides, mediaByIndex }) => {
+export default function EmblaCarousel({ slides, mediaByIndex }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [mainViewportRef, embla] = useEmblaCarousel({ skipSnaps: false });
   const [thumbViewportRef, emblaThumbs] = useEmblaCarousel({
@@ -44,7 +44,11 @@ const EmblaCarousel = ({ slides, mediaByIndex }) => {
               slides.map((index) => (
                 <div className="embla__slide" key={index}>
                   <div className="embla__slide__inner">
-                    <img className="embla__slide__img" src={mediaByIndex(index)} alt="A cool cat." />
+                    <img
+                      className="embla__slide__img"
+                      src={mediaByIndex(index)}
+                      alt="A cool cat."
+                    />
                   </div>
                 </div>
               ))
@@ -72,6 +76,4 @@ const EmblaCarousel = ({ slides, mediaByIndex }) => {
       </div>
     </Container>
   );
-};
-
-export default EmblaCarousel;
+}

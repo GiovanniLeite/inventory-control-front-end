@@ -12,8 +12,8 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { DialogZ } from '../../styles/global';
-import { Container, CategoriesContainer, Picture, New } from './styled';
+import { ModifiedDialog } from '../../styles/global';
+import { Container, NewCategory } from './styled';
 
 export default function Categories() {
   const dispatch = useDispatch();
@@ -73,12 +73,12 @@ export default function Categories() {
   };
 
   const handleSub = async (id) => {
-    let subs = document.getElementsByClassName(`sub${id}`);
+    let subs = document.querySelectorAll(`.sub${id}`);
 
     if (subs[0]) {
       // to hide subsub if exists
       if (subs[0].style.display === 'grid') {
-        const subsubs = document.getElementsByClassName(`subsub${id}`);
+        const subsubs = document.querySelectorAll(`.subsub${id}`);
         if (subsubs) {
           subs = [...subs, ...subsubs];
           for (const sub of subs) {
@@ -100,13 +100,13 @@ export default function Categories() {
       <Loading isLoading={isLoading} />
       {!isLoading && (
         <Container>
-          <h1>Categorias</h1>
+          <h2>Categorias</h2>
 
-          <New to="/category/" title="Nova categoria">
+          <NewCategory to="/category/" title="Nova categoria">
             <FaListAlt /> Novo
-          </New>
+          </NewCategory>
 
-          <CategoriesContainer>
+          <div className="categoryList">
             {obj.map((objZ, index) => {
               let categoryType = 'main';
               let cat = 'Categoria Principal';
@@ -123,7 +123,7 @@ export default function Categories() {
 
               return (
                 <div key={String(objZ.id)} className={categoryType}>
-                  <Picture>
+                  <section className="arrowDown">
                     <a
                       onClick={(e) => {
                         e.preventDefault();
@@ -133,7 +133,7 @@ export default function Categories() {
                     >
                       <FaRegArrowAltCircleDown size={16} />
                     </a>
-                  </Picture>
+                  </section>
 
                   <span title={cat}>{objZ.name}</span>
 
@@ -158,10 +158,10 @@ export default function Categories() {
                 </div>
               );
             })}
-          </CategoriesContainer>
+          </div>
         </Container>
       )}
-      <DialogZ
+      <ModifiedDialog
         open={open}
         onClose={(e) => {
           e.preventDefault();
@@ -185,7 +185,7 @@ export default function Categories() {
             Excluir
           </button>
         </DialogActions>
-      </DialogZ>
+      </ModifiedDialog>
     </MainContainer>
   );
 }

@@ -15,54 +15,51 @@ export const Container = styled.div`
       grid-template-columns: 50% 50%;
       padding: ${theme.spacings.small};
 
-      .second {
+      label {
+        padding-left: 5px;
+        min-width: 150px;
+        padding-top: 5px;
+      }
+
+      > label {
+        padding-left: 0;
+      }
+
+      select,
+      input[type='text'] {
+        margin: 5px 0;
+        height: 40px;
+        width: 100%;
+        padding: 0 10px;
+        border: 1px solid #ddd;
+
+        &:hover {
+          border-color: ${theme.colors.black};
+        }
+      }
+
+      div.categoryReport {
         margin-left: ${theme.spacings.small};
 
         button.categorySelector {
           font-weight: 400;
+        }
+
+        input.inputCatReport {
+          margin-top: 34px;
         }
       }
 
       @media only screen and (max-width: 500px) {
         grid-template-columns: 100%;
 
-        .second {
+        div.categoryReport {
           margin-left: 0;
         }
       }
     }
 
-    form > div {
-      margin-bottom: ${theme.spacings.small};
-
-      label {
-        padding-left: 5px;
-      }
-    }
-
-    label {
-      min-width: 150px;
-      padding-top: 5px;
-    }
-
-    select,
-    input[type='text'] {
-      margin: 5px 0;
-      height: 40px;
-      width: 100%;
-      padding: 0 10px;
-      border: 1px solid #ddd;
-
-      &:hover {
-        border-color: ${({ theme }) => theme.colors.black};
-      }
-    }
-
-    input#inputCatReport {
-      margin-top: 34px;
-    }
-
-    button.report {
+    button.reportButton {
       cursor: pointer;
       display: block;
       padding: 10px 15px;

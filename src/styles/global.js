@@ -3,6 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dialog from '@material-ui/core/Dialog';
 
 export const GlobalStyles = createGlobalStyle`
+${({ theme }) => css`
   * {
     margin: 0;
     padding: 0;
@@ -15,18 +16,19 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: ${({ theme }) => theme.font.sizes.medium};
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: ${theme.font.sizes.medium};
 
     .Toastify .Toastify__toast-container .Toastify__toast--success,
     .Toastify .Toastify__toast-container .Toastify__toast--warning,
     .Toastify .Toastify__toast-container .Toastify__toast--error {
-      background: ${({ theme }) => theme.colors.black};
+      background: ${theme.colors.black};
       border-radius: 0;
     }
 
     .Toastify .Toastify__toast-container .Toastify__toast--success {
-      color:#00ff00;
+      color: #00ff00;
     }
 
     .Toastify .Toastify__toast-container .Toastify__toast--warning {
@@ -39,33 +41,18 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   a {
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${theme.colors.secondary};
     text-decoration: none;
     transition: opacity 300ms ease-in-out;
 
     &:hover {
-      opacity: .6;
+      opacity: 0.6;
     }
   }
+`}
 `;
 
-export const Container = styled.section`
-  max-width: 480px;
-  margin: 30px auto;
-  padding: 30px;
-  box-shadow: 0 0 10px #666;
-
-  @media only screen and (max-width: 480px) {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-
-  h1 {
-    text-align: center;
-  }
-`;
-
-export const DialogZ = styled(Dialog)`
+export const ModifiedDialog = styled(Dialog)`
   ${({ theme }) => css`
     .MuiPaper-root {
       border-radius: 0;

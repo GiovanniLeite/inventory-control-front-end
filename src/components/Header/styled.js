@@ -29,6 +29,28 @@ export const Container = styled.header`
       }
     }
 
+    ul#menuHamburguer {
+      margin-left: -${theme.spacings.small};
+      list-style: none;
+      display: none;
+      float: left;
+      position: absolute;
+      margin-top: 43px;
+      background-color: rgba(0, 0, 0, 0.9);
+      min-width: 320px;
+      z-index: 1;
+
+      @media only screen and (max-width: 700px) {
+        width: 100%;
+      }
+
+      li {
+        text-align: center;
+        padding: 15px;
+        border-top: 1px solid ${theme.colors.gold};
+      }
+    }
+
     a {
       color: ${theme.colors.white};
       padding: 5px;
@@ -40,7 +62,7 @@ export const Container = styled.header`
       }
     }
 
-    a#home {
+    a.homeLogo {
       color: ${theme.colors.gold};
       font-size: ${theme.font.sizes.large};
       padding: 0;
@@ -55,45 +77,23 @@ export const Container = styled.header`
         margin-left: 0;
       }
     }
+
+    ul.deskMenu {
+      list-style: none;
+      float: right;
+      margin-right: ${theme.spacings.small};
+      margin-top: 3px;
+
+      @media only screen and (max-width: 700px) {
+        display: none;
+      }
+
+      li {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
   `}
-`;
-
-export const HamburguerUl = styled.ul`
-  margin-left: -${({ theme }) => theme.spacings.small};
-  list-style: none;
-  display: none;
-  float: left;
-  position: absolute;
-  margin-top: 43px;
-  background-color: rgba(0, 0, 0, 0.9);
-  min-width: 320px;
-  z-index: 1;
-
-  @media only screen and (max-width: 700px) {
-    width: 100%;
-  }
-`;
-
-export const HamburguerLi = styled.li`
-  text-align: center;
-  padding: 15px;
-  border-top: 1px solid ${({ theme }) => theme.colors.gold};
-`;
-
-export const RightUl = styled.ul`
-  list-style: none;
-  float: right;
-  margin-right: ${({ theme }) => theme.spacings.small};
-  margin-top: 3px;
-
-  @media only screen and (max-width: 700px) {
-    display: none;
-  }
-`;
-
-export const RightLi = styled.li`
-  display: inline-block;
-  vertical-align: middle;
 `;
 
 export const Button = styled.button`

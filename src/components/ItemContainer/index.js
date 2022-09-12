@@ -14,7 +14,7 @@ import apiUrl from '../../config/api';
 import formatKm from '../../utils/formatKm';
 
 import Reports from '../Reports';
-import { DialogZ } from '../../styles/global';
+import { ModifiedDialog } from '../../styles/global';
 import {
   Container,
   ContainerDuo,
@@ -68,9 +68,9 @@ export default function ItemContainer({ item }) {
     <Container>
       <Loading isLoading={isLoading} />
       <ContainerDuo>
-        <div id="images">
-          <div id="contentCarousel">
-            <h1>{item.name}</h1>
+        <div className="imagesItem">
+          <div className="contentCarousel">
+            <h2>{item.name}</h2>
             <EmblaCarousel
               slides={slides}
               mediaByIndex={mediaByIndex}
@@ -114,8 +114,8 @@ export default function ItemContainer({ item }) {
             </ul>
           </div>
         </div>
-        <div id="data">
-          <h1>{item.name}</h1>
+        <div className="dataItem">
+          <h2>{item.name}</h2>
           <div>
             <label>
               Cód:
@@ -186,7 +186,7 @@ export default function ItemContainer({ item }) {
           <p>{item.description || '-'}</p>
         </label>
       </ContainerDescription>
-      <DialogZ
+      <ModifiedDialog
         open={open}
         onClose={(e) => {
           e.preventDefault();
@@ -210,7 +210,7 @@ export default function ItemContainer({ item }) {
             Excluir
           </button>
         </DialogActions>
-      </DialogZ>
+      </ModifiedDialog>
       <DialogRel
         open={openRel}
         onClose={(e) => {
@@ -255,6 +255,6 @@ ItemContainer.propTypes = {
     price_my: PropTypes.string,
     is_car: PropTypes.bool,
     description: PropTypes.string,
-    Files: PropTypes.instanceOf(Array), // PropTypes.shape(PropTypes.shape({})), // PropTypes.array,
+    Files: PropTypes.instanceOf(Array),
   }).isRequired,
 };

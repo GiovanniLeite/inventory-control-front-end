@@ -1,5 +1,3 @@
-/* eslint-disable react/button-has-type */
-import React from 'react';
 import PropTypes from 'prop-types';
 import { FaAngleDown, FaRegArrowAltCircleDown } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -24,12 +22,12 @@ export default function CategorySelector({ categories, handle, asterisk }) {
   };
 
   const handleSub = async (id) => {
-    let subs = document.getElementsByClassName(`sub${id}`);
+    let subs = document.querySelectorAll(`.sub${id}`);
 
     if (subs[0]) {
       // to hide subsub if exists
       if (subs[0].style.display === 'block') {
-        const subsubs = document.getElementsByClassName(`subsub${id}`);
+        const subsubs = document.querySelectorAll(`.subsub${id}`);
         if (subsubs) {
           subs = [...subs, ...subsubs];
           for (const sub of subs) {

@@ -109,7 +109,6 @@ export const Pagination = styled.div`
       width: 100px;
       box-shadow: 0 0 10px #666;
 
-      * flex para alinhar conteúdo *
       display: flex;
       justify-content: center;
       align-items: center;

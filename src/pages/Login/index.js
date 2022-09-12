@@ -8,7 +8,7 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { Container, Form } from './styled';
+import { Container } from './styled';
 
 export default function Login(props) {
   const dispatch = useDispatch();
@@ -28,13 +28,13 @@ export default function Login(props) {
     if (!isEmail(email)) {
       formErrors = true;
       toast.error('E-mail inválido.');
-      document.getElementById('email').style.borderColor = '#ff0000';
+      document.querySelector('#email').style.borderColor = '#ff0000';
     }
 
     if (password.length < 6 || password.length > 50) {
       formErrors = true;
       toast.error('Senha inválida');
-      document.getElementById('password').style.borderColor = '#ff0000';
+      document.querySelector('#password').style.borderColor = '#ff0000';
     }
 
     if (formErrors) return;
@@ -49,9 +49,9 @@ export default function Login(props) {
       <Loading isLoading={isLoading} />
       {!isLoading && (
         <Container>
-          <h1>Login</h1>
+          <h2>Login</h2>
 
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <label htmlFor="email">
               *Email:
               <input
@@ -75,7 +75,7 @@ export default function Login(props) {
             <button type="submit" id="save">
               Acessar
             </button>
-          </Form>
+          </form>
         </Container>
       )}
     </MainContainer>

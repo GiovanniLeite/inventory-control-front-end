@@ -9,7 +9,7 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { Container, Title, Form } from './styled';
+import { Container } from './styled';
 
 export default function File({ match, history }) {
   const dispatch = useDispatch();
@@ -68,15 +68,13 @@ export default function File({ match, history }) {
     <MainContainer>
       <Container>
         <Loading isLoading={isLoading} />
-
-        <Title>Arquivos</Title>
-
-        <Form>
+        <h2>Arquivos</h2>
+        <form>
           <label htmlFor="file">
             {fileItem ? <img src={fileItem} alt="File" /> : 'Selecionar'}
             <input type="file" id="file" onChange={handleChange} />
           </label>
-        </Form>
+        </form>
       </Container>
     </MainContainer>
   );

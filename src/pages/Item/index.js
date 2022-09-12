@@ -9,7 +9,7 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { Container, ItemDetails } from './styled';
+import { Container } from './styled';
 import ItemContainer from '../../components/ItemContainer';
 
 export default function Item({ match, history }) {
@@ -59,7 +59,7 @@ export default function Item({ match, history }) {
       <Loading isLoading={isLoading} />
       {get(item, 'name', false) && get(categories[0], 'name', false) && (
         <Container>
-          <ItemDetails>
+          <div className="itemDetails">
             <ul>
               <li>{`${categories[0].name} `}</li>
               {get(categories[1], 'name', false) && (
@@ -75,7 +75,7 @@ export default function Item({ match, history }) {
                 </>
               )}
             </ul>
-          </ItemDetails>
+          </div>
           <ItemContainer item={item} />
         </Container>
       )}

@@ -12,8 +12,8 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { DialogZ } from '../../styles/global';
-import { Container, ContainerZ, Picture, New } from './styled';
+import { ModifiedDialog } from '../../styles/global';
+import { Container, NewWish } from './styled';
 
 export default function Wishlist() {
   const dispatch = useDispatch();
@@ -80,22 +80,22 @@ export default function Wishlist() {
       <Loading isLoading={isLoading} />
       {!isLoading && (
         <Container>
-          <h1>Lista de Desejos</h1>
+          <h2>Lista de Desejos</h2>
 
-          <New to={`/wish/${true}/`}>
+          <NewWish to={`/wish/${true}/`}>
             <FaRegHeart /> Novo
-          </New>
+          </NewWish>
 
-          <ContainerZ>
+          <div className="wishList">
             {obj.map((objZ, index) => (
               <div key={String(objZ.id)}>
-                <Picture>
+                <div className="picture">
                   {get(objZ, 'Files[0].url', false) ? (
                     <img src={objZ.Files[0].url} alt="" />
                   ) : (
                     <FaRegHeart size={36} />
                   )}
-                </Picture>
+                </div>
 
                 <span>{objZ.name}</span>
 
@@ -120,10 +120,10 @@ export default function Wishlist() {
                 </section>
               </div>
             ))}
-          </ContainerZ>
+          </div>
         </Container>
       )}
-      <DialogZ
+      <ModifiedDialog
         open={open}
         onClose={(e) => {
           e.preventDefault();
@@ -147,7 +147,7 @@ export default function Wishlist() {
             Excluir
           </button>
         </DialogActions>
-      </DialogZ>
+      </ModifiedDialog>
     </MainContainer>
   );
 }

@@ -31,18 +31,18 @@ export const ContainerDuo = styled.section`
       width: 100%;
     }
 
-    div#images {
+    div.imagesItem {
       padding-right: 10px;
 
       @media only screen and (max-width: 850px) {
         padding-right: 0;
       }
 
-      div#contentCarousel {
+      div.contentCarousel {
         background-color: ${theme.colors.white};
         box-shadow: 0 0 10px #666;
 
-        h1 {
+        h2 {
           display: none;
         }
 
@@ -86,7 +86,7 @@ export const ContainerDuo = styled.section`
         @media only screen and (max-width: 850px) {
           padding: ${theme.spacings.superSmall};
 
-          h1 {
+          h2 {
             display: block;
             font-size: 140%;
             text-align: center;
@@ -103,14 +103,14 @@ export const ContainerDuo = styled.section`
         }
 
         @media only screen and (max-width: 460px) {
-          h1 {
+          h2 {
             font-size: 110%;
           }
         }
       }
     }
 
-    div#data {
+    div.dataItem {
       background-color: ${theme.colors.white};
       padding: ${theme.spacings.medium};
       box-shadow: 0 0 10px #666;
@@ -128,7 +128,7 @@ export const ContainerDuo = styled.section`
         padding: ${theme.spacings.small};
       }
 
-      h1 {
+      h2 {
         margin-bottom: ${theme.spacings.medium};
         text-align: center;
 

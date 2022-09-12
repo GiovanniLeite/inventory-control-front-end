@@ -8,7 +8,7 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { Container, Form } from './styled';
+import { Container } from './styled';
 
 export default function Register(props) {
   const dispatch = useDispatch();
@@ -37,19 +37,19 @@ export default function Register(props) {
     if (name.length < 3 || name.length > 255) {
       formErrors = true;
       toast.error('Nome deve ter entre 3 e 255 caracteres');
-      document.getElementById('name').style.borderColor = '#ff0000';
+      document.querySelector('#name').style.borderColor = '#ff0000';
     }
 
     if (!isEmail(email)) {
       formErrors = true;
       toast.error('E-mail inválido.');
-      document.getElementById('email').style.borderColor = '#ff0000';
+      document.querySelector('#email').style.borderColor = '#ff0000';
     }
 
     if (!id && (password.length < 6 || password.length > 50)) {
       formErrors = true;
       toast.error('Senha deve ter entre 6 e 50 caracteres');
-      document.getElementById('password').style.borderColor = '#ff0000';
+      document.querySelector('#password').style.borderColor = '#ff0000';
     }
 
     if (formErrors) return;
@@ -64,9 +64,9 @@ export default function Register(props) {
       <Loading isLoading={isLoading} />
       {!isLoading && (
         <Container>
-          <h1>{id ? 'Editar dados' : 'Crie sua conta'}</h1>
+          <h2>{id ? 'Editar dados' : 'Crie sua conta'}</h2>
 
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <label htmlFor="name">
               *Nome:
               <input
@@ -103,7 +103,7 @@ export default function Register(props) {
             <button type="submit" id="save">
               {id ? 'Salvar' : 'Criar conta'}
             </button>
-          </Form>
+          </form>
         </Container>
       )}
     </MainContainer>

@@ -15,7 +15,7 @@ import apiUrl from '../../config/api';
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
 import CategorySelector from '../../components/CategorySelector';
-import { Container, Picture, Form } from './styled';
+import { Container } from './styled';
 
 export default function ItemEdit({ match, history }) {
   const dispatch = useDispatch();
@@ -171,16 +171,16 @@ export default function ItemEdit({ match, history }) {
     if (name.length < 3 || name.length > 255) {
       toast.error('Nome precisa ter entre 3 e 255 caracteres');
       formErrors = true;
-      document.getElementById('name').style.borderColor = '#ff0000';
+      document.querySelector('#name').style.borderColor = '#ff0000';
     }
 
     if (quantity.length < 1) {
       toast.error('Quantidade precisa ser preenchido');
       formErrors = true;
-      document.getElementById('quantity').style.borderColor = '#ff0000';
+      document.querySelector('#quantity').style.borderColor = '#ff0000';
     }
 
-    const inputCategory = document.getElementById('inputCat');
+    const inputCategory = document.querySelector('#inputCat');
     if (idMainCategory === 0) {
       toast.error('Categoria deve ser selecionada');
       formErrors = true;
@@ -271,9 +271,9 @@ export default function ItemEdit({ match, history }) {
       <Loading isLoading={isLoading} />
       {!isLoading && get(categories[0], 'name', false) && (
         <Container>
-          <h1>Item</h1>
+          <h2>Item</h2>
           {id && (
-            <Picture>
+            <div className="image">
               {file ? (
                 <img src={file} alt={file} />
               ) : (
@@ -283,11 +283,11 @@ export default function ItemEdit({ match, history }) {
               <Link to={`/file/${id}`}>
                 <FaEdit size={24} />
               </Link>
-            </Picture>
+            </div>
           )}
 
-          <Form onSubmit={handleSubmit}>
-            <div id="divForm">
+          <form onSubmit={handleSubmit}>
+            <div className="formDiv">
               <label htmlFor="name" title="Campo Obrigatório">
                 *Nome:
                 <input
@@ -503,7 +503,7 @@ export default function ItemEdit({ match, history }) {
             <button type="submit" id="save">
               Salvar
             </button>
-          </Form>
+          </form>
         </Container>
       )}
     </MainContainer>

@@ -10,7 +10,7 @@ import * as actions from '../../store/modules/auth/actions';
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
 import CategorySelector from '../../components/CategorySelector';
-import { Container, Form } from './styled';
+import { Container } from './styled';
 
 export default function Category({ match, history }) {
   const dispatch = useDispatch();
@@ -87,13 +87,13 @@ export default function Category({ match, history }) {
     if (name.length < 3 || name.length > 255) {
       toast.error('Nome precisa ter entre 3 e 255 caracteres');
       formErrors = true;
-      document.getElementById('name').style.borderColor = '#ff0000';
+      document.querySelector('#name').style.borderColor = '#ff0000';
     }
 
     if (idParent === '') {
       toast.error('Categoria não selecionada');
       formErrors = true;
-      document.getElementById('inputCat').style.borderColor = '#ff0000';
+      document.querySelector('#inputCat').style.borderColor = '#ff0000';
     }
 
     if (formErrors) return;
@@ -143,9 +143,9 @@ export default function Category({ match, history }) {
         <Loading isLoading={isLoading} />
         {!isLoading && (
           <>
-            <h1>{id ? 'Editar Categoria' : 'Nova Categoria'}</h1>
+            <h2>{id ? 'Editar Categoria' : 'Nova Categoria'}</h2>
 
-            <Form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <label htmlFor="name">
                 *Nome:
                 <input
@@ -166,7 +166,7 @@ export default function Category({ match, history }) {
                       asterisk
                     />
                     <input
-                      id="inputCat"
+                      className="inputCat"
                       type="number"
                       value={idParent}
                       disabled="disabled"
@@ -175,10 +175,10 @@ export default function Category({ match, history }) {
                   </>
                 )
               }
-              <button type="submit" id="save">
+              <button className="saveCategory" type="submit">
                 Enviar
               </button>
-            </Form>
+            </form>
           </>
         )}
       </Container>

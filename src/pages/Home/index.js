@@ -13,9 +13,9 @@ import * as actions from '../../store/modules/auth/actions';
 
 import MainContainer from '../../components/MainContainer';
 import Loading from '../../components/Loading';
-import { Container, Pagination } from './styles';
+import { Container, Pagination } from './styled';
 import CategorySelector from '../../components/CategorySelector';
-import PostCard from '../../components/PostCard';
+import Cards from '../../components/Cards';
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -236,7 +236,7 @@ export default function Home() {
           </div>
           <div id="containerItem">
             {items.map((item) => (
-              <PostCard
+              <Cards
                 key={item.id}
                 cover={
                   get(item, 'Files[0].url', false)

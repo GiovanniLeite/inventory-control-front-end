@@ -71,7 +71,7 @@ export default function Reports() {
         setCategory3(id);
       }
 
-      document.getElementById('inputCatReport').value = nameCategory;
+      document.querySelector('#inputCatReport').value = nameCategory;
     } catch (err) {
       const data = get(err, 'response.data', {});
       const errors = get(data, 'errors', []);
@@ -142,21 +142,21 @@ export default function Reports() {
       {!isLoading && get(categories[0], 'name', false) && (
         <>
           <form onSubmit={handleReport}>
-            <label htmlFor="type">
+            <label className="firstLabel" htmlFor="type">
               Tipo:
               <select id="type" onChange={(e) => setType(e.target.value)}>
                 <option value="Items">Itens</option>
                 <option value="wishes">Desejos</option>
               </select>
             </label>
-            <div className="second">
+            <div className="categoryReport">
               <CategorySelector
                 categories={categories}
                 handle={handleCategory}
               />
               <input
                 type="text"
-                id="inputCatReport"
+                className="inputCatReport"
                 placeholder="Categoria"
                 disabled
               />
@@ -183,7 +183,7 @@ export default function Reports() {
               <label htmlFor="hideSold">Ocultar vendidos</label>
             </div>
           </form>
-          <button className="report" onClick={handleReport}>
+          <button className="reportButton" onClick={handleReport}>
             Relatório
           </button>
         </>
